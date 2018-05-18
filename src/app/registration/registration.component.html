@@ -1,0 +1,74 @@
+<form [formGroup]="form" #f="ngForm" (ngSubmit)="register(f.value)">
+
+  <h1 class="h3 mb-3 font-weight-normal">Please Register</h1>
+
+  <div class="alert alert-danger"
+    *ngIf="invalidLogin"
+  >
+    Username or password has already been registered
+  </div>
+
+  <!-- USERNAME -->
+  <div class="form-group">
+    <label for="name" class="sr-only">User Name</label>
+    <input 
+      type="text"
+      id="name"
+      class="form-control"
+      placeholder="User Name"
+      formControlName="name"
+    >
+    <div class="alert alert-danger"
+      *ngIf="name.touched && name.invalid"
+    >
+      User name is required
+    </div>
+  </div>
+
+  <!-- EMAIL -->
+  <div class="form-group">
+    <label for="email" class="sr-only">User Name</label>
+    <input 
+      type="email"
+      id="email"
+      class="form-control"
+      placeholder="Email"
+      formControlName="email"
+    >
+  </div>
+
+  <!-- PASSWORD -->
+  <div class="form-group">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input 
+      type="password" 
+      id="inputPassword" 
+      class="form-control" 
+      placeholder="Password" 
+      formControlName="password"
+    >
+  </div>
+
+  <!-- CONFIRM PASSWORD -->
+  <div class="form-group">
+    <label for="confirmPassword" class="sr-only">Password</label>
+    <input 
+      type="password" 
+      id="confirmPassword" 
+      class="form-control" 
+      placeholder="Confirm Password" 
+      formControlName="confirmPassword"
+    >
+  </div>
+
+  <!-- CHECKBOX -->
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+
+  <!-- SUBMIT BUTTON -->
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+
+</form>

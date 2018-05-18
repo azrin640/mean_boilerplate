@@ -1,0 +1,71 @@
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const passport = require('passport');
+const User = mongoose.model('User');
+const { promisify } = require('es6-promisify');
+require('express-validator');
+const jwt = require('jsonwebtoken');
+
+exports.validateRegister = (req, res, next) => {
+    req.sanitizeBody('name');
+    req.checkBody('name', 'You must supply a name').notEmpty();
+    req.checkBody('email', 'That email is not valid').isEmail();
+    req.sanitizeBody('email').normalizeEmail({
+        remove_dots: false,
+        remove_extensions: false,
+        gmail_remove_subaddress: false 
+    });
+    req.checkBody('password', 'Password can not be blank').notEmpty();
+    req.checkBody('confirmPassword', 'Your password do not match').equals(req.body.password);
+
+    const errors = req.validationErrors();  
+    return next();
+};
+
+exports.register = async (req, res, next) => {    
+    const user = new User({
+        name: req.body.name,
+        email: req.body.email
+    });
+
+    await user.setPassword(req.body.password);
+    await user.save(function (err, user){
+        if(err){
+            res.json({
+                status: 400,
+                message: 'User has already registered'
+            })
+        }
+        if(user){
+            var token = user.generateJwt();
+
+            res.json({
+                    status: 201,
+                    message: 'User created',
+                    token,
+                    id: user._id
+            })
+        }
+    });
+    
+};
+
+exports.login = passport.authenticate('local', (err, res) => {
+    if(res && res._id){
+        var token = res.generateJwt();
+        console.log(token);
+        res.json({
+            status: 202,
+            message: 'User login accepted',
+            token,
+            id: res._id
+        });
+    }
+    if(res === false){
+        res.json({
+            status: 404,
+            message: 'User not found'
+        });
+    }
+
+});

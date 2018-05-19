@@ -9,7 +9,7 @@ export class AuthService {
 
   register(credentials){    
     return this.http.post('http://localhost:7777/api/register', credentials)
-     .map(response =>{
+     .map(response => {
         let result = response.json();
         if(result.status === 201){
           console.log(result);
@@ -21,16 +21,16 @@ export class AuthService {
         }
         if(result.status === 400){
           return false;
-        }        
+        }
      });
   }
 
   login(credentials){
     return this.http.post('http://localhost:7777/api/login', credentials)
       .map(response => {
-        console.log(response);
         let result = response.json();
-        console.log(result);
+        console.log('Result :' + result.status);
+
         if(result.status === 202){
           localStorage.setItem('user', JSON.stringify({
             token: result.token,
@@ -38,10 +38,10 @@ export class AuthService {
           }));
           return true;
         }
-        if(result === 404){
+        else{
           return false;
         }
+
       });
   }
-
 }

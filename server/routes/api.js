@@ -14,10 +14,7 @@ router.post('/register',
 );
 
 // Login User
-router.post('/login', 
-    //userController.validateLogin,
-    userController.login
-);
+router.post('/login', userController.login);
 
 module.exports = router;
 

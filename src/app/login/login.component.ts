@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl()
   });
 
-private invalidLogin = false;
+  private invalidLogin = false;
 
   constructor(
     private router: Router,
@@ -27,6 +27,7 @@ private invalidLogin = false;
   login(credentials: HTMLInputElement){
     this.authService.login(credentials)
       .subscribe(result => {
+        console.log(result);
         if(result){
           this.router.navigate(['/']);
         }

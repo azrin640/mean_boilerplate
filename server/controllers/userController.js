@@ -50,22 +50,29 @@ exports.register = async (req, res, next) => {
     
 };
 
-exports.login = passport.authenticate('local', (err, res) => {
-    if(res && res._id){
-        var token = res.generateJwt();
-        console.log(token);
-        res.json({
-            status: 202,
-            message: 'User login accepted',
-            token,
-            id: res._id
-        });
-    }
-    if(res === false){
-        res.json({
-            status: 404,
-            message: 'User not found'
-        });
-    }
+exports.login = (req, res, next) => {
+    passport.authenticate('local', function(err, user, info){
+        if(err){
+            res.json({
+                status: 401,
+                message: 'Unauthorized'
+            })
+        }
+        if(!user) {
+            res.json({
+                status: 404,
+                message: 'User not found'
+            })
+        }
+        if(user){
+            var token = user.generateJwt();
+            res.json({
+                status: 202,
+                message: 'User login accepted',
+                token: token,
+                id: user._id
+            });
+        }
 
-});
+    })(req, res, next);
+};

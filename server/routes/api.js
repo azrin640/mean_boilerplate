@@ -4,7 +4,9 @@ const postsController = require('../controllers/postsController');
 const userController = require('../controllers/userController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
-router.get('/posts', catchErrors(postsController.getPosts));
+router.get('/', (req, res) => {
+    res.render('index');
+})
 
 // ** USER **
 // Register User

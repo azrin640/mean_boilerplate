@@ -14,12 +14,12 @@ require('./server/handlers/passport');
 // create our Express app
 const app = express();
 
-/*
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views')); // this is the folder where we keep our pug files
 app.set('view engine', 'ejs'); // we use the engine pug, mustache or EJS work great too
 
-
+/*
 // jquery setup
 //app.use('/css', express.static(__dirname + '/node_modules/bulma/css')); // redirect CSS bulma
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
@@ -31,11 +31,12 @@ const api = require('./server/routes/api');
 // serves up static files from the public folder. Anything in public/ will just be served up as the file it is
 app.use(express.static(path.join(__dirname, 'dist')));
 
-
+/*
 // Return other routes to Angular index file
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
+*/
 
 // Takes the raw requests and turns them into usable properties on req.body
 app.use(bodyParser.json());

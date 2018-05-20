@@ -11,8 +11,20 @@
         <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
       </li>
 
-      <li routerLinkActive="nav-item active">
+      <!-- Login -->
+      <li routerLinkActive="nav-item active"
+        *ngIf="authService.isLoggedIn()"
+      >
         <a class="nav-link" routerLink="/login">Login</a>
+      </li>
+
+      <!-- Logout -->
+      <li routerLinkActive="nav-item active">
+        <a class="nav-link" 
+          (click)="authService.logout()"
+        >
+          Logout
+        </a>
       </li>
 
       <li routerLinkActive="nav-item active">

@@ -1,7 +1,7 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { tokenNotExpired } from 'angular2-jwt';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
@@ -14,10 +14,7 @@ export class AuthService {
         let result = response.json();
         if(result.status === 201){
           console.log(result);
-          localStorage.setItem('user', JSON.stringify({
-            token: result.token,
-            id: result.id
-          }));
+          localStorage.setItem('token', result.token);
           return true;
         }
         if(result.status === 400){
@@ -33,10 +30,7 @@ export class AuthService {
         console.log('Result :' + result.status);
 
         if(result.status === 202){
-          localStorage.setItem('user', JSON.stringify({
-            token: result.token,
-            id: result.id
-          }));
+          localStorage.setItem('token', result.token);
           return true;
         }
         else{
@@ -47,10 +41,17 @@ export class AuthService {
   }
 
   logout(){
-    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   }
 
   isLoggedIn(){
     return tokenNotExpired();
+  }
+
+  get currentUser(){
+    let token = localStorage.getItem('token');
+    if(!token) return null;
+
+    return new JwtHelper().decodeToken(token);
   }
 }

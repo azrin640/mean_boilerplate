@@ -1,5 +1,5 @@
 import { AuthService } from './../service/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService
   ) { }
 
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
       .subscribe(result => {
         console.log(result);
         if(result){
-          this.router.navigate(['/']);
+          let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+          this.router.navigate([returnUrl || '/']);
         }
         else{
           this.invalidLogin = true;

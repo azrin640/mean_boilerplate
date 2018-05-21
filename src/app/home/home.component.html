@@ -1,1 +1,5 @@
-<p>Home component works</p>
+<p
+    *ngIf="authService.isLoggedIn()"
+>
+    Welcome {{ authService.currentUser.name }}
+</p>

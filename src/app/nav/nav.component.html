@@ -9,17 +9,26 @@
 
       <li routerLinkActive="nav-item active">
         <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
-      </li>
+      </li>      
 
       <!-- Login -->
       <li routerLinkActive="nav-item active"
-        *ngIf="authService.isLoggedIn()"
+        *ngIf="!authService.isLoggedIn()"
       >
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
 
+      <!-- Admin -->
+      <li routerLinkActive="nav-item active"
+        *ngIf="authService.isLoggedIn() && authService.currentUser.admin"
+      >
+        <a class="nav-link" routerLink="/admin">Admin</a>
+      </li>
+
       <!-- Logout -->
-      <li routerLinkActive="nav-item active">
+      <li routerLinkActive="nav-item active"
+        *ngIf="authService.isLoggedIn()"
+      >
         <a class="nav-link" 
           (click)="authService.logout()"
         >
@@ -27,13 +36,14 @@
         </a>
       </li>
 
-      <li routerLinkActive="nav-item active">
+      <!-- Register -->
+      <li routerLinkActive="nav-item active"
+        *ngIf="!authService.isLoggedIn()"
+      >
           <a class="nav-link" routerLink="/register">Register</a>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
+      <!-- Dropdown -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01">

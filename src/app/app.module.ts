@@ -1,3 +1,5 @@
+import { AdminAuthGuardService } from './service/admin-guard/admin-auth-guard.service';
+import { AuthGuardService } from './service/guard/auth-guard.service';
 import { Http, HttpModule } from '@angular/http';
 import { AuthService } from './service/auth/auth.service';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
+import { AdminComponent } from './admin/admin.component';
+import { NoAccessComponent } from './no-access/no-access.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,9 @@ import { RegistrationComponent } from './registration/registration.component';
     NavComponent,
     HomeComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    AdminComponent,
+    NoAccessComponent
   ],
   imports: [
     HttpModule,
@@ -29,12 +35,19 @@ import { RegistrationComponent } from './registration/registration.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegistrationComponent }
+      { path: 'admin', 
+        component: AdminComponent,
+        canActivate: [AuthGuardService, AdminAuthGuardService]
+      },
+      { path: 'register', component: RegistrationComponent },
+      { path: 'no-access', component: NoAccessComponent }
     ])
   ],
   providers: [
     PostService,
-    AuthService
+    AuthService,
+    AuthGuardService,
+    AdminAuthGuardService
   ],
   bootstrap: [AppComponent]
 })

@@ -15,7 +15,11 @@
 
 # Development 
 1. For Development run the below listed
+
+#   
     i. start express server on localhost port 7777 by running => nodemon start-dev
+
+#
     ii. start angular development on localhost port 4200 by running => ng serve
 
 2. API routes is located at server/routes/api

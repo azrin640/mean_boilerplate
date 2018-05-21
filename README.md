@@ -1,3 +1,35 @@
+# ** MEAN BOILERPLATE **
+# MEAN (Mongodb, Express, Angular, Node)
+
+# How to use
+
+1. Download as zip file or clone it directly by running in the terminal => git clone https://github.com/azrin640/mean_boilerplate.git
+
+2. cd into the extracted directory 
+
+3. Install mongodb community edition into your pc or localhost according  to step listed on => https://docs.mongodb.com/manual/administration/install-community/
+
+4. Run mongodb in the terminal with => sudo service mongod start
+
+5. Run npm install to install dependencies => npm install
+
+# Development 
+1. For Development run the below listed
+    i. start express server on localhost port 7777 by running => nodemon start-dev
+    ii. start angular development on localhost port 4200 by running => ng serve
+
+2. API routes is located at server/routes/api
+
+3. Angular is located at src/app
+
+# Production
+1. For production, run ng build to compile angular code from development to /dist folder, use => ng build
+
+2. Start production server by running => node start
+
+
+# ** Angular Readme below this line (can read if you want to) **
+
 # Boilerplate
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.

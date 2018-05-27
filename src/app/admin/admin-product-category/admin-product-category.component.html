@@ -1,0 +1,38 @@
+<form [formGroup]="form" #f="ngForm" (ngSubmit)="register(f.value)">
+
+  <h1 class="h3 mb-3 font-weight-normal">Create Category</h1>
+
+  <div class="alert alert-danger"
+    *ngIf="invalidCategory"
+  >
+    Category save error
+  </div>
+
+  <!-- Category Name -->
+  <div class="form-group">
+    <label for="nameCategory" class="sr-only">Category Name</label>
+    <input 
+      type="text"
+      id="nameCategory"
+      class="form-control"
+      placeholder="Category Name"
+      formControlName="name"
+    >
+  </div>
+
+  <!-- Category Description -->
+  <div class="form-group">
+    <label for="descCategory" class="sr-only">Category Description</label>
+    <input 
+      type="text"
+      id="descCategory"
+      class="form-control"
+      placeholder="Category Description"
+      formControlName="description"
+    >
+  </div>
+
+  <!-- SUBMIT BUTTON -->
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+
+</form>

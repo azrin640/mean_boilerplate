@@ -1,61 +1,135 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-  <a class="navbar-brand" routerLink="/" >Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<!-- ** NAVBAR ** -->
+<nav class="navbar navbar-expand-md 
+  navbar-light bg-light fixed-top"
+>
 
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
+  <!-- BRAND -->
+  <a class="navbar-brand" routerLink="/" >MEAN</a>
 
-      <li routerLinkActive="nav-item active">
-        <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
-      </li>      
+  <!-- NAVBAR -->
+    <button class="navbar-toggler" 
+      type="button" 
+      data-toggle="collapse" 
+      data-target="#navbarsExampleDefault" 
+      aria-controls="navbarsExampleDefault" 
+      aria-expanded="false" 
+      aria-label="Toggle navigation" 
+      (click)="isCollapsed = !isCollapsed"     
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <!-- Login -->
-      <li routerLinkActive="nav-item active"
-        *ngIf="!authService.isLoggedIn()"
+    <!-- Navbar Collapse -->
+    <div class="collapse navbar-collapse" 
+      id="navbarsExampleDefault"
+      [ngbCollapse]="isCollapsed"
+    >
+      <ul class="navbar-nav mr-auto" 
       >
-        <a class="nav-link" routerLink="/login">Login</a>
-      </li>
 
-      <!-- Admin -->
-      <li routerLinkActive="nav-item active"
-        *ngIf="authService.isLoggedIn() && authService.currentUser.admin"
-      >
-        <a class="nav-link" routerLink="/admin">Admin</a>
-      </li>
+        <!-- Home Link -->
+        <li routerLinkActive="nav-item active">
+          <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+        </li>   
+        
+        <!-- Products Link -->
+        <li routerLinkActive="nav-item active">
+          <a class="nav-link" routerLink="/products">
+            Products 
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>   
 
-      <!-- Logout -->
-      <li routerLinkActive="nav-item active"
-        *ngIf="authService.isLoggedIn()"
-      >
-        <a class="nav-link" 
-          (click)="authService.logout()"
+        <!-- Login Link -->
+        <li routerLinkActive="nav-item active"
+          *ngIf="!authService.isLoggedIn()"
         >
-          Logout
-        </a>
-      </li>
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
 
-      <!-- Register -->
-      <li routerLinkActive="nav-item active"
-        *ngIf="!authService.isLoggedIn()"
-      >
-          <a class="nav-link" routerLink="/register">Register</a>
-      </li>
+        <!-- Admin Link -->
+        <li routerLinkActive="nav-item active"
+          *ngIf="authService.isLoggedIn() && authService.currentUser.admin"
+        >
+          <a class="nav-link" routerLink="/admin">Admin</a>
+        </li>
 
-      <!-- Dropdown -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
+        <!-- Logout Link -->
+        <li routerLinkActive="nav-item active"
+          *ngIf="authService.isLoggedIn()"
+        >
+          <a class="nav-link" 
+            (click)="authService.logout()"
+          >
+            Logout
+          </a>
+        </li>
+
+        <!-- Register Link -->
+        <li routerLinkActive="nav-item active"
+          *ngIf="!authService.isLoggedIn()"
+        >
+            <a class="nav-link" routerLink="/register">Register</a>
+        </li>
+
+        <!-- DROPDOWN MENU -->
+        <li class="nav-item dropdown show" 
+          ngbDropdown 
+        >
+          <a class="nav-link dropdown-toggle" 
+            id="dropdown01" 
+            data-toggle="dropdown" 
+            aria-haspopup="true" 
+            aria-expanded="false"
+            ngbDropdownToggle
+          >
+            Settings
+          </a>
+          <div class="dropdown-menu show" 
+            aria-labelledby="dropdown01"
+            ngbDropdownMenu
+          >
+            <!-- Dropdown Item Admin Manage Product -->
+            <a class="dropdown-item" 
+              *ngIf="authService.isLoggedIn() && authService.currentUser.admin"
+              routerLink="/admin/products"
+            >
+              Manage Products
+            </a>
+            
+            <!-- Dropdown Item Admin Product Form -->
+            <a class="dropdown-item" 
+              *ngIf="authService.isLoggedIn() && authService.currentUser.admin"
+              routerLink="/admin/product-form"
+            >
+              Register Product 
+            </a>
+
+            <!-- Dropdown Item Admin Product Category Form -->
+            <a class="dropdown-item" 
+              *ngIf="authService.isLoggedIn() && authService.currentUser.admin"
+              routerLink="/admin/product/category"
+            >
+              Add Product Category  
+            </a>
+
+            <!-- Dropdown Another Action -->
+            <a class="dropdown-item" routerLink="#">Another action</a>
+
+            <!-- Dropdown Item Logout -->          
+            <a class="dropdown-item" 
+              *ngIf="authService.isLoggedIn()"
+              (click)="authService.logout()"
+            >
+              Logout
+            </a>
+
+          </div>
+        </li>
+
+      </ul>
+
+      
+    </div>
+  
 </nav>

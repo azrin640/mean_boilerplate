@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
+  // Var Settings
+  public isCollapsed = true;
+
   constructor(private authService: AuthService) { }
 
   ngOnInit() {

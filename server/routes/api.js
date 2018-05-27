@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const postsController = require('../controllers/postsController');
 const userController = require('../controllers/userController');
+const productController = require('../controllers/productController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', (req, res) => {
@@ -17,6 +17,11 @@ router.post('/register',
 
 // Login User
 router.post('/login', userController.login);
+
+// ** PRODUCT **
+
+router.post('/category', catchErrors(productController.createCategory));
+router.post('/product', productController.createProduct);
 
 module.exports = router;
 

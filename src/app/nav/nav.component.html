@@ -54,22 +54,24 @@
           <a class="nav-link" routerLink="/admin">Admin</a>
         </li>
 
-        <!-- Logout Link -->
-        <li routerLinkActive="nav-item active"
-          *ngIf="authService.isLoggedIn()"
-        >
-          <a class="nav-link" 
-            (click)="authService.logout()"
-          >
-            Logout
-          </a>
-        </li>
-
+        
         <!-- Register Link -->
         <li routerLinkActive="nav-item active"
           *ngIf="!authService.isLoggedIn()"
         >
             <a class="nav-link" routerLink="/register">Register</a>
+        </li>
+
+        <!-- Logout Link -->
+        <li routerLinkActive="nav-item active"
+          *ngIf="authService.isLoggedIn()"
+        >
+            <a class="nav-link" 
+              routerLink="/logout"
+              (click)="authService.logout()"
+            >
+              Logout
+            </a>
         </li>
 
         <!-- DROPDOWN MENU -->
@@ -81,9 +83,10 @@
             data-toggle="dropdown" 
             aria-haspopup="true" 
             aria-expanded="false"
+            *ngIf="authService.isLoggedIn() && authService.currentUser.admin"
             ngbDropdownToggle
           >
-            Settings
+            Admin 
           </a>
           <div class="dropdown-menu show" 
             aria-labelledby="dropdown01"
@@ -100,7 +103,7 @@
             <!-- Dropdown Item Admin Product Form -->
             <a class="dropdown-item" 
               *ngIf="authService.isLoggedIn() && authService.currentUser.admin"
-              routerLink="/admin/product-form"
+              routerLink="/admin/product/new"
             >
               Register Product 
             </a>
@@ -111,17 +114,6 @@
               routerLink="/admin/product/category"
             >
               Add Product Category  
-            </a>
-
-            <!-- Dropdown Another Action -->
-            <a class="dropdown-item" routerLink="#">Another action</a>
-
-            <!-- Dropdown Item Logout -->          
-            <a class="dropdown-item" 
-              *ngIf="authService.isLoggedIn()"
-              (click)="authService.logout()"
-            >
-              Logout
             </a>
 
           </div>

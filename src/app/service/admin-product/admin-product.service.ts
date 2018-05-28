@@ -13,4 +13,11 @@ export class AdminProductService {
     return this.http.post('/api/category', category);
   }
 
+  getCategories(){
+    return this.http.get('/api/categories');
+  }
+
+  createProduct(product){
+    return this.http.post('/api/product', product); 
+  }
 }

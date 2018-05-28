@@ -30,8 +30,9 @@ exports.createCategory = async (req, res) => {
     });
 }
 
-exports.getCategories = (req, res) => {
-
+exports.getCategories = async (req, res) => {
+    const categories = await Category.find();
+    res.json(categories);
 }
 
 exports.validateProduct = (req, res, next) => {
@@ -46,10 +47,19 @@ exports.validateProduct = (req, res, next) => {
 }
 
 exports.createProduct = async (req, res) => {
+    console.log(req.body);
     const product = new Product({
         title: req.body.title,
         price: req.body.price,
-        category: req.body.category
+        category: req.body.category,
+        image: req.body.imageUrl
     });
-    await product.save();
+    await product.save(function(err, result){
+       if(result){
+           res.json(result);
+       }
+       else{
+           res.json(err);
+       }
+   });    
 }

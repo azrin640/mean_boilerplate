@@ -8,20 +8,8 @@ const productSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    author: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User',
-        required: 'You must supply an author'
-    },
-    name: {
-        type: String,
-        required: 'Please supply product name',
-        trim: true 
-    },
     category: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Category',
-        required: 'Please select a category'
+        type: String
     },
     title: {
         type: String,

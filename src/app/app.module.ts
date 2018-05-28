@@ -67,7 +67,7 @@ import { AdminProductCategory } from './admin/admin-product-category/admin-produ
         component: AdminProductCategory,
         canActivate: [AuthGuardService, AdminAuthGuardService]
       },      
-      { path: 'admin/products/new', 
+      { path: 'admin/product/new', 
         component: AdminProductFormComponent,
         canActivate: [AuthGuardService, AdminAuthGuardService]
       },      

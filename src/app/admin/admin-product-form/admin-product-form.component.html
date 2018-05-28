@@ -1,9 +1,14 @@
-<form action="">
+<form #f="ngForm" (ngSubmit)="saveProduct(f.value)">
 
     <!-- Title Input -->
     <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" id="title" class="form-control">
+        <input type="text" 
+            id="title" 
+            class="form-control"
+            name="title"
+            ngModel
+        >
     </div>
 
     <!-- Price Input -->
@@ -13,23 +18,44 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">RM</span>
             </div>
-            <input type="number" id="price" class="form-control">
+            <input type="number" 
+                id="price" 
+                class="form-control"
+                name="price"
+                ngModel
+            >
         </div>
     </div>
 
     <!-- Category Select Input -->
     <div class="form-group">
-        <label for="Category">Category</label>
-        <select id="category" class="form-control">
-            <option value=""></option>
-        </select>    
+        <label for="category">Category</label>
+        <select class="custom-select"
+            name="category"
+            ngModel
+        >
+            <option selected>Select Category</option>
+            <option 
+                *ngFor="let result of results"
+                [value]="result.name"
+            >
+                {{ result.name }}
+            </option>
+        </select>
     </div>
 
     <!-- Image URL Input -->
     <div class="form-group">
-        <label for="imageURL">Image URL</label>
-        <input type="text" id="imageURL" class="form-control">
+        <label for="imageUrl">Image URL</label>
+        <input type="text" 
+            id="imageUrl" 
+            class="form-control"
+            name="imageUrl"
+            ngModel
+        >
     </div>
+
+    <!-- Save Button -->
     <button class="btn btn-primary">Save</button>
     
 </form>

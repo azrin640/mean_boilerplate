@@ -1,5 +1,31 @@
-<a class="btn btn-primary"
-  routerLink="/admin/products/new"
->
-  New Product 
-</a>
+<p>
+  <a class="btn btn-primary"
+    routerLink="/admin/product/new"
+  >
+    New Product 
+  </a>
+</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.title }}</td>
+      <td>{{ product.price }}</td>
+      <td>
+        <a type="button" 
+          class="btn btn-primary" 
+          [routerLink]="['/admin/product/', product._id]"
+        >
+          Edit Product
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>

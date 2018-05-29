@@ -46,14 +46,6 @@
         >
           <a class="nav-link" routerLink="/login">Login</a>
         </li>
-
-        <!-- Admin Link -->
-        <li routerLinkActive="nav-item active"
-          *ngIf="authService.isLoggedIn() && authService.currentUser.admin"
-        >
-          <a class="nav-link" routerLink="/admin">Admin</a>
-        </li>
-
         
         <!-- Register Link -->
         <li routerLinkActive="nav-item active"
@@ -77,6 +69,7 @@
         <!-- DROPDOWN MENU -->
         <li class="nav-item dropdown show" 
           ngbDropdown 
+          *ngIf="authService.isLoggedIn() && authService.currentUser.admin"
         >
           <a class="nav-link dropdown-toggle" 
             id="dropdown01" 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminProductService } from '../../service/admin-product/admin-product.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin-product',
@@ -7,7 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminProductComponent implements OnInit {
 
-  constructor() { }
+  product;
+
+  constructor(
+    private adminProductService: AdminProductService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.adminProductService.getProduct(id)
+      .subscribe(response => {
+        console.log(response.json());
+        this.product = response.json();
+      });
+  }
 
   ngOnInit() {
   }

@@ -1,61 +1,153 @@
-<form #f="ngForm" (ngSubmit)="saveProduct(f.value)">
 
-    <!-- Title Input -->
-    <div class="form-group">
-        <label for="title">Title</label>
-        <input type="text" 
-            id="title" 
-            class="form-control"
-            name="title"
-            ngModel
+
+<div class="row">
+    <div class="col-md-6">
+        <!-- Alert -->
+        <div class="alert alert-danger"
+            *ngIf="invalidProduct"
         >
-    </div>
-
-    <!-- Price Input -->
-    <div class="form-group">
-        <label for="price">Price</label>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text">RM</span>
-            </div>
-            <input type="number" 
-                id="price" 
-                class="form-control"
-                name="price"
-                ngModel
-            >
+            There is no matching product in the database
         </div>
-    </div>
-
-    <!-- Category Select Input -->
-    <div class="form-group">
-        <label for="category">Category</label>
-        <select class="custom-select"
-            name="category"
-            ngModel
+        <div class="alert alert-success"
+            *ngIf="productUpdated"
         >
-            <option selected>Select Category</option>
-            <option 
-                *ngFor="let result of results"
-                [value]="result.name"
+            Product has been successfully updated
+        </div>
+
+        <!-- FORM -->
+        <form #f="ngForm" (ngSubmit)="saveProduct(f.value)">
+
+            <!-- Title Input -->
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" 
+                    id="title" 
+                    class="form-control"
+                    name="title"
+                    [(ngModel)]="product.title"
+                    required
+                    #title="ngModel"
+                >
+                <div class="alert alert-danger"
+                    *ngIf="title.touched && title.invalid"
+                >
+                    Title is required. 
+                </div>
+            </div>
+
+            <!-- Price Input -->
+            <div class="form-group">
+                <label for="price">Price</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">RM</span>
+                    </div>
+                    <input type="number" 
+                        id="price" 
+                        class="form-control"
+                        name="price"
+                        [(ngModel)]="product.price"
+                        required
+                        #price="ngModel"
+                        [min]="0"
+                    >            
+                </div>
+                <!-- Price error -->
+                <div class="alert alert-danger"
+                    *ngIf="price.touched && price.invalid"
+                >
+                    <div
+                        *ngIf="price.errors.required"
+                    >
+                        Price is required
+                    </div>
+                    <div
+                        *ngIf="price.errors.min"
+                    >
+                        Price should be 0 or higher
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Select Input -->
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select class="custom-select"
+                    name="category"
+                    [(ngModel)]="product.category"
+                    required
+                    #category="ngModel"
+                >
+                    <option selected>Select Category</option>
+                    <option 
+                        *ngFor="let result of results"
+                        [value]="result.name"
+                    >
+                        {{ result.name }}
+                    </option>
+                </select>
+                <div class="alert alert-danger"
+                    *ngIf="category.touched && category.invalid"
+                >
+                    Category is required 
+                </div>
+            </div>
+
+            <!-- Image URL Input -->
+            <div class="form-group">
+                <label for="imageUrl">Image URL</label>
+                <input type="text" 
+                    id="imageUrl" 
+                    class="form-control"
+                    name="imageUrl"
+                    [(ngModel)]="product.image"
+                    required 
+                    #imageUrl="ngModel"
+                    url
+                >
+                <div class="alert alert-danger"
+                    *ngIf="imageUrl.touched && imageUrl.invalid"
+                >
+                    <div 
+                        *ngIf="imageUrl.errors.required"
+                    >
+                        Image url is required
+                    </div>
+                    <div 
+                        *ngIf="imageUrl.errors.url"
+                    >
+                        Image url must be a url 
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-danger"
+            *ngIf="productUpdateError"
             >
-                {{ result.name }}
-            </option>
-        </select>
-    </div>
+                Product update error, please try again
+            </div>
 
-    <!-- Image URL Input -->
-    <div class="form-group">
-        <label for="imageUrl">Image URL</label>
-        <input type="text" 
-            id="imageUrl" 
-            class="form-control"
-            name="imageUrl"
-            ngModel
-        >
-    </div>
-
-    <!-- Save Button -->
-    <button class="btn btn-primary">Save</button>
+            <!-- Save Button -->
+            <button class="btn btn-primary">Save</button>
     
-</form>
+        </form>
+    </div>
+    <div class="col-md-6"
+        *ngIf="title.value || price.value || category.value || imageUrl.value"
+    >
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" 
+                *ngIf="product.image"
+                [src]="product.image"
+            >
+            <div class="card-body">
+                <h3 class="card title">{{ title.value }}</h3>
+                <h5>{{ category.value }}</h5>
+                <p class="card-text">
+                    {{ price.value | currency: 'RM'}} 
+                </p>
+            </div>
+          </div>
+    </div>
+</div>
+

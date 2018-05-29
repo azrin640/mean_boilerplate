@@ -14,18 +14,10 @@ exports.createCategory = async (req, res) => {
     });
     await category.save(function(err, success){
         if(err){
-            console.log('Error:' + err);
-            res.json({
-                status: 400,
-                message: 'This category has already been registered'
-            })
+            res.json(err);
         }
         if(success){
-            console.log('Success:' + success);
-            res.json({
-                status: 201,
-                message: 'Category created'
-            })
+            res.json(success);
         }
     });
 }
@@ -62,4 +54,49 @@ exports.createProduct = async (req, res) => {
            res.json(err);
        }
    });    
+}
+
+exports.getProducts = async (req, res) => {
+    const products = await Product.find(function(err, results){
+        if(err){
+            res.json(err);
+        }
+        if(results){
+            console.log(results);
+            res.json(results);
+        }
+    });
+}
+
+exports.getProduct = async (req, res) => {
+    const product = await Product.findOne({_id: req.params.id}, function(err, result){
+        if(err){
+            res.json(err);
+        }
+        if(result){
+            res.json(result);
+        }
+    });
+}
+
+exports.updateProduct = async (req, res) => {
+    const id = req.params.id;
+    const product = req.body;
+
+    await Product.findByIdAndUpdate(
+        {_id: id},
+        {   title: req.body.title,
+            price: req.body.price,
+            category: req.body.category,
+            image: req.body.imageUrl
+        }, 
+        {new: true},
+        function(err, result) {
+            if(err){
+                res.json(err);
+            }
+            if(result){
+                res.json(result);
+            }
+    });
 }

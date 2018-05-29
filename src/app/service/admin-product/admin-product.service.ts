@@ -20,4 +20,17 @@ export class AdminProductService {
   createProduct(product){
     return this.http.post('/api/product', product); 
   }
+
+  getProducts(){
+    return this.http.get('/api/products');
+  }
+
+  getProduct(productId){
+    return this.http.get('/api/product/' + productId);
+  }
+
+  updateProduct(productId, product){
+    console.log(productId, product);
+    return this.http.post('/api/product/update/' + productId, product);
+  }
 }

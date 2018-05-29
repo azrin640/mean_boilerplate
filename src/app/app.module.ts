@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CustomFormsModule } from 'ng2-validation';
 
 // ** SERVICES **
 import { AdminAuthGuardService } from './service/admin-guard/admin-auth-guard.service';
@@ -53,6 +54,7 @@ import { AdminProductCategory } from './admin/admin-product-category/admin-produ
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    CustomFormsModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
@@ -62,15 +64,23 @@ import { AdminProductCategory } from './admin/admin-product-category/admin-produ
       { path: 'admin', 
         component: AdminComponent,
         canActivate: [AuthGuardService, AdminAuthGuardService]
-      },
+      },      
       { path: 'admin/product/category', 
         component: AdminProductCategory,
         canActivate: [AuthGuardService, AdminAuthGuardService]
-      },      
+      }, 
       { path: 'admin/product/new', 
         component: AdminProductFormComponent,
         canActivate: [AuthGuardService, AdminAuthGuardService]
-      },      
+      },
+      { path: 'admin/product/:id', 
+        component: AdminProductFormComponent,
+        canActivate: [AuthGuardService, AdminAuthGuardService]
+      },                  
+      { path: 'admin/products', 
+        component: AdminProductsComponent,
+        canActivate: [AuthGuardService, AdminAuthGuardService]
+      },  
       { path: 'no-access', component: NoAccessComponent }
     ])
   ],

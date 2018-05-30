@@ -29,8 +29,11 @@ export class AdminProductService {
     return this.http.get('/api/product/' + productId);
   }
 
-  updateProduct(productId, product){
-    console.log(productId, product);
+  updateProduct(productId, product){  
     return this.http.post('/api/product/update/' + productId, product);
+  }
+
+  deleteProduct(productId, product){
+    return this.http.post('/api/product/delete/' + productId, product);
   }
 }

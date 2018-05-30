@@ -5,6 +5,14 @@
     New Product 
   </a>
 </p>
+<p>
+  <input type="text" 
+    class="form-control" 
+    placeholder="Search ..."
+    #query
+    (keyup)="filter(query.value)"
+  >
+</p>
 
 <table class="table">
   <thead>
@@ -15,9 +23,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let product of products">
+    <tr *ngFor="let product of filteredProducts">
       <td>{{ product.title }}</td>
-      <td>{{ product.price }}</td>
+      <td>{{ product.price | currency: 'RM'}}</td>
       <td>
         <a type="button" 
           class="btn btn-primary" 

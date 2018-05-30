@@ -26,7 +26,6 @@ export class AdminProductFormComponent implements OnInit {
         this.adminProductService.getProduct(this.id)
           .take(1)
           .subscribe(response => {
-            console.log(response.json());
             let result = response.json();
             if(result._id && result.created){
               this.product = result;
@@ -74,5 +73,19 @@ export class AdminProductFormComponent implements OnInit {
      }
   }
 
+  deleteProduct(product){
+    if(confirm('Are you sure to delete this product?')){
+      this.adminProductService.deleteProduct(this.id, this.product)
+        .subscribe(response => {
+          let result = response.json();
+          if(result){
+            this.router.navigate(['/admin/products']);
+          }
+          else{
+            this.invalidProduct = true;
+          }
+        });
+    }
+  }
 
 }

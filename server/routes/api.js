@@ -26,6 +26,7 @@ router.post('/product', catchErrors(productController.createProduct));
 router.get('/products', catchErrors(productController.getProducts));
 router.get('/product/:id', catchErrors(productController.getProduct));
 router.post('/product/update/:id', catchErrors(productController.updateProduct));
+router.post('/product/delete/:id', catchErrors(productController.deleteProduct));
 
 module.exports = router;
 

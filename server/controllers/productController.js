@@ -7,7 +7,6 @@ const { promisify } = require('es6-promisify');
 require ('express-validator');
 
 exports.createCategory = async (req, res) => {
-    console.log(req.body);
     const category = new Category({
         name: req.body.name,
         description: req.body.description 
@@ -62,7 +61,6 @@ exports.getProducts = async (req, res) => {
             res.json(err);
         }
         if(results){
-            console.log(results);
             res.json(results);
         }
     });
@@ -99,4 +97,17 @@ exports.updateProduct = async (req, res) => {
                 res.json(result);
             }
     });
+}
+
+exports.deleteProduct = async (req, res) => {
+    if(req.params.id){
+        await Product.findByIdAndRemove({_id: req.params.id}, function(err, result){
+            if(err){
+                res.json(err);
+            }
+            if(result){
+                res.json(result);
+            }
+        });
+    }
 }

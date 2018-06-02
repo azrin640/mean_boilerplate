@@ -5,6 +5,9 @@ const User = mongoose.model('User');
 const { promisify } = require('es6-promisify');
 require('express-validator');
 const jwt = require('jsonwebtoken');
+const passportJWT = require('passport-jwt');
+const JwtStrategy = require('passport-jwt').Strategy,
+    ExtractJwt = require('passport-jwt').ExtractJwt;
 
 exports.validateRegister = (req, res, next) => {
     req.sanitizeBody('name');
@@ -20,6 +23,19 @@ exports.validateRegister = (req, res, next) => {
 
     const errors = req.validationErrors();  
     return next();
+};
+
+exports.isLoggedIn = async (req, res, next) => {
+    var auth = req.headers.authorization;
+    var token = auth.split(' ')[1];
+    var decodedUser = jwt.decode(token);
+    const user = await User.findOne({_id: decodedUser._id});
+    if(user){
+        return next();
+    }
+    else{
+        res.json('No User');
+    }      
 };
 
 exports.register = async (req, res, next) => {    

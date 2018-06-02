@@ -30,7 +30,8 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
   // Unsubscribe
   ngOnDestroy(){
-    this.subscription.unsubscribe();
+    this.subscription
+      .unsubscribe;
   }
 
   ngOnInit() {

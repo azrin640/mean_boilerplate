@@ -20,7 +20,11 @@ router.post('/login', userController.login);
 
 // ** PRODUCT **
 
-router.post('/category', catchErrors(productController.createCategory));
+router.post('/category', 
+    catchErrors(userController.isLoggedIn),
+    catchErrors(productController.createCategory)
+);
+
 router.get('/categories', catchErrors(productController.getCategories));
 router.post('/product', catchErrors(productController.createProduct));
 router.get('/products', catchErrors(productController.getProducts));

@@ -10,11 +10,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./admin-product-category.component.scss']
 })
 export class AdminProductCategory implements OnInit {
-
   form = new FormGroup({
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required)
   });
+  invalidCategory = false;
 
   constructor(
     private adminProductService: AdminProductService) { }
@@ -24,20 +24,12 @@ export class AdminProductCategory implements OnInit {
 
   register(category: HTMLInputElement){
     this.adminProductService.createCategory(category)
-      .subscribe(
-        response => {
-          console.log(response.json());
-        }, 
-        (error: Response) => {
-          if(error.status === 404){
-            alert('Unable to save category, please try again');
-            console.log('Error: ' + error.status);
+      .subscribe(response => {
+          let result = response.json();  
+          if(result.code === 11000){
+            this.invalidCategory = true;
           }
-          else{
-            alert('An unexpected error occured');
-            console.log('Error:' + error.status);
-          }
-        });
+      });
   }
 
 }

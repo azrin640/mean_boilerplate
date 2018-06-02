@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomFormsModule } from 'ng2-validation';
+import { AUTH_PROVIDERS } from 'angular2-jwt';
 
 // ** SERVICES **
 import { AdminAuthGuardService } from './service/admin-guard/admin-auth-guard.service';
@@ -31,6 +32,7 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 import { AdminProductFormComponent } from './admin/admin-product-form/admin-product-form.component';
 import { AdminProductComponent } from './admin/admin-product/admin-product.component';
 import { AdminProductCategory } from './admin/admin-product-category/admin-product-category.component';
+
 
 @NgModule({
   declarations: [
@@ -85,6 +87,7 @@ import { AdminProductCategory } from './admin/admin-product-category/admin-produ
     ])
   ],
   providers: [
+    AUTH_PROVIDERS,
     AuthService,
     AuthGuardService,
     AdminAuthGuardService,
